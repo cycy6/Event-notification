@@ -6,7 +6,8 @@ html, body {
   margin: 0px;
   padding: 0px;
   height: 100%;
-  background: peach;
+  font-style: arial;
+  background-color: #15b374;
 }
 
 .main-section {
@@ -18,7 +19,7 @@ html, body {
 }
 
 .placeholder {
-
+  color: white;
 }
 
 .pill-button-container {
@@ -33,8 +34,16 @@ html, body {
   width: 100%;
   table-layout: fixed;
   border-collapse: collapse;
-  background-color: white;;
+  background-color: white;
 }
 .buttons button {
   width: 100%;
+}
+
+.responsive-width {
+  font-size: 3vw;
+}
+
+.navbar {
+  padding: 0;
 }
