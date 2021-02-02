@@ -6,9 +6,8 @@ html, body {
   margin: 0px;
   padding: 0px;
   height: 100%;
-  background: peach;
   font-style: arial;
-  background-color: #007A7C;
+  background-color: #15b374;
 }
 
 .main-section {
@@ -20,7 +19,7 @@ html, body {
 }
 
 .placeholder {
-  background-color: yellow;
+  color: white;
 }
 
 .pill-button-container {
@@ -35,7 +34,7 @@ html, body {
   width: 100%;
   table-layout: fixed;
   border-collapse: collapse;
-  background-color: white;;
+  background-color: white;
 }
 .buttons button {
   width: 100%;
