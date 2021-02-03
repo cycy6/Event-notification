@@ -2,12 +2,31 @@
   box-sizing: border-box;
 }
 
+p{
+  text-align: center;
+}
+
 html, body {
   margin: 0px;
   padding: 0px;
   height: 100%;
   font-style: arial;
   background-color: #15b374;
+}
+
+.center{
+  margin : 0;
+  position: relative;
+  top: 50%;
+  left: 40%;
+}
+
+.index-section{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  flex-direction: column;
 }
 
 .main-section {
@@ -34,8 +53,8 @@ html, body {
   width: 100%;
   table-layout: fixed;
   border-collapse: collapse;
-  background-color: white;
 }
+
 .buttons button {
   width: 100%;
 }
@@ -46,4 +65,13 @@ html, body {
 
 .navbar {
   padding: 0;
+}
+
+.btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active {
+  background-color: #00b3db;
+  border-color: #285e8e; 
+}
+
+.input-form {
+  margin-top: 30px;
 }
