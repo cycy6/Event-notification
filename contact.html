@@ -67,7 +67,7 @@
           </div>
           <div class="col-auto">
             <button type="submit" class="btn btn-dark mb-3" onClick="submit(event)">Submit</button>
-            <button type="submit" class="btn btn-dark mb-3" onClick="toggleMessages(event)">History</button>
+            <!-- <button type="submit" class="btn btn-dark mb-3" onClick="toggleMessages(event)">History</button> -->
           </div>
         </div>
       </div>
@@ -75,14 +75,29 @@
     <container class="container">
       <div id="history" class="row"></div>
     </container>
+
+    <script src="https://smtpjs.com/v3/smtp.js"></script>
     <script>
       var contacts = []
-      function submit(event){
+      async function submit(event){
         event.preventDefault()
         var person = {name:'', email:'', message:''}
         var name = document.querySelector('#nameInput').value
         var email = document.querySelector('#emailInput').value
         var message = document.querySelector('#messageInput').value
+        await Email.send({
+          Host: "smtp.gmail.com",
+          Username: "georgehuo0211@gmail.com",
+          Password: "Vh3Ds@df0K",
+          To: "siyuan.huo@yahoo.com",
+          From: "georgehuo0211@gmail.com",
+          Subject: `Message from ${name}`,
+          Body: `
+                  Message: ${message}
+                  Reply Email: ${email}
+                `
+        })
+        
         person.name = name
         person.email = email
         person.message = message
