@@ -2,12 +2,31 @@
   box-sizing: border-box;
 }
 
+p{
+  text-align: center;
+}
+
 html, body {
   margin: 0px;
   padding: 0px;
   height: 100%;
   font-style: arial;
   background-color: #15b374;
+}
+
+.center{
+  margin : 0;
+  position: relative;
+  top: 50%;
+  left: 40%;
+}
+
+.index-section{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  flex-direction: column;
 }
 
 .main-section {
