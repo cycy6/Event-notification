@@ -34,8 +34,8 @@ html, body {
   width: 100%;
   table-layout: fixed;
   border-collapse: collapse;
-  background-color: white;
 }
+
 .buttons button {
   width: 100%;
 }
@@ -46,4 +46,13 @@ html, body {
 
 .navbar {
   padding: 0;
+}
+
+.btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active {
+  background-color: #00b3db;
+  border-color: #285e8e; 
+}
+
+.input-form {
+  margin-top: 30px;
 }
