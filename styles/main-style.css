@@ -75,3 +75,11 @@ html, body {
 .input-form {
   margin-top: 30px;
 }
+
+#plusBtn, #minusBtn {
+  margin-top: 30px;
+}
+
+#minusBtn {
+  background-color: #dc3545;
+}
