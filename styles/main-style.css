@@ -83,3 +83,7 @@ html, body {
 #minusBtn {
   background-color: #dc3545;
 }
+
+#medication-div .list-group-item{
+  min-height: 41px;
+}

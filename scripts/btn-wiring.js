@@ -3,14 +3,23 @@
 // Passing in its own ID.
 
 let formCollapse;
+let listCollapse;
 let currentBtn;
 let inputForm;
 let numTimeSlots = 1;
+let request;
+const myReg = /[a-z]+(?=<\/term>)/gim;
+let xmlDoc;
 
 (function() {
   // Initialization function.
   // Make form a collapsable element.
   formCollapse = new bootstrap.Collapse(document.getElementById('main-form'), {
+    toggle: false
+  });
+
+  // Make the auto suggestion list a collapsable element.
+  listCollapse = new bootstrap.Collapse(document.getElementById('medication-div'), {
     toggle: false
   });
 
@@ -31,8 +40,8 @@ let numTimeSlots = 1;
     // hide form. Will remove this, just for debugging.
     // TODO: REMOVE THIS EVENTUALLY!
     formCollapse.hide();
-    
-  });
+    listCollapse.hide();
+})
 
   document.getElementById('resetBtn').addEventListener("click", () => {
     // input="reset" clears the form's data already. But w/e, keep this here.
@@ -45,6 +54,7 @@ let numTimeSlots = 1;
       btn.classList.remove('disabled');
     }
     formCollapse.hide();
+    listCollapse.hide();
   });
 
   // Prevent submit button from refreshing page.
@@ -76,6 +86,19 @@ let numTimeSlots = 1;
   });
 
 })();
+
+// Write <input> for medication to use fuzzy matching
+// new Def.Autocompleter.Prefetch('drug_strengths', []);
+// new Def.Autocompleter.Search('rxterms', 'https://clinicaltables.nlm.nih.gov/api/rxterms/v3/search?ef=STRENGTHS_AND_FORMS');
+// Def.Autocompleter.Event.observeListSelections('rxterms', function () {
+//   var drugField = document.getElementById('inputMedication')[0];
+//   var autocomp = drugField.autocomp;
+//   var strengths =
+//     autocomp.getSelectedItemData()[0].data['STRENGTHS_AND_FORMS'];
+//   if (strengths)
+//     $('#drug_strengths')[0].autocomp.setListAndField(strengths, '');
+// });
+
 
 // Assign btn IDs programmatically to each button [1, 7] inclusive.
 for (let i = 1; i <= 7; ++i) {
@@ -129,4 +152,29 @@ function btnClickHandler (event) {
 for (const btn of btns) {
   btn.addEventListener("click", btnClickHandler);
 }
+
+// wire fuzzy match autosuggestion to the medication <input> element.
+
+let inputMedication = document.getElementById('inputMedication');
+inputMedication.addEventListener('keypress', autoSuggest)
+function autoSuggest() {
+  console.log('autoSuggest() function executing!');
+  request = new XMLHttpRequest();
+  request.open('GET', 'https://rxnav.nlm.nih.gov/REST/displaynames?name=well', true);
+  request.onload = () => {
+    if (request.readyState === 4) {
+      xmlDoc = request.responseXML;
+      let autosuggestionArray = xmlDoc.getElementsByTagName('term');
+
+      for (let i = 0; i < 3; ++i) {
+        // Access autosuggestionArray[0..5], populate possible completion items.
+        let ul = document.getElementById('medication-div')
+        ul.children[i].innerHTML = autosuggestionArray[i].innerHTML;
+
+        listCollapse.show();
+      }
+    }
+  };
+  request.send();
+};
 
