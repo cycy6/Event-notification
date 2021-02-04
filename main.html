@@ -13,6 +13,7 @@
   <div class="navbar">
 
   </div>
+
   <div class="main-section container">
     <div class="placeholder">
       Click selected date
@@ -21,17 +22,47 @@
       <div id="days" class="btn-group" role="group" aria-label="Basic example">
         <table class="buttons">
         <tr>
-        <td><button type="button" class="btn btn-primary responsive-width">Mon</button></td>
-        <td><button type="button" class="btn btn-primary responsive-width">Tues</button></td>
-        <td><button type="button" class="btn btn-primary responsive-width">Wed</button></td>
-        <td><button type="button" class="btn btn-primary responsive-width">Thurs</button></td>
-        <td><button type="button" class="btn btn-primary responsive-width">Fri</button></td>
-        <td><button type="button" class="btn btn-primary responsive-width">Sat</button></td>
-        <td><button type="button" class="btn btn-primary responsive-width">Sun</button></td>
+        <td><button type="button" class="btn btn-primary responsive-width" data-bs-target="#main-form">Mon</button></td>
+        <td><button type="button" class="btn btn-primary responsive-width" data-bs-target="#main-form">Tues</button></td>
+        <td><button type="button" class="btn btn-primary responsive-width" data-bs-target="#main-form">Wed</button></td>
+        <td><button type="button" class="btn btn-primary responsive-width" data-bs-target="#main-form">Thurs</button></td>
+        <td><button type="button" class="btn btn-primary responsive-width" data-bs-target="#main-form">Fri</button></td>
+        <td><button type="button" class="btn btn-primary responsive-width" data-bs-target="#main-form">Sat</button></td>
+        <td><button type="button" class="btn btn-primary responsive-width" data-bs-target="#main-form">Sun</button></td>
         </tr>
         </table>
       </div>
     </div>
+
+    <div class="input-form collapse show" id="input-form-container">
+      <form class="row g-3 collapse" id="main-form">
+          <div class="col-md-6">
+            <label for="inputMedication" class="form-label">Medication</label>
+            <input type="text" class="form-control" id="inputMedication">
+          </div>
+          <div class="col-md-6">
+            <label for="inputTime" class="form-label">Time</label>
+            <input type="time" class="form-control" id="inputTime">
+          </div>
+          <div class="col-md-12">
+            <label for="inputCity" class="form-label">Description</label>
+            <input type="text" class="form-control" id="inputDescription">
+          </div>
+          <div class="col-12">
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" id="gridCheck">
+              <label class="form-check-label" for="gridCheck">
+                Check me out
+              </label>
+            </div>
+          </div>
+          <div class="col-12">
+            <button type="submit" class="btn btn-primary" id="submitBtn">Add to Schedule</button>
+            <button type="reset" class="btn btn-warning" id="resetBtn">Clear</button>
+            <button type="button" class="btn btn-danger" id="cancelBtn">Cancel item</button>
+          </div>
+        </form>
+      </div>
   </div>
 
   <footer class="nav justify-content-center fixed-bottom bg-dark">
@@ -40,13 +71,6 @@
     </li>
 </footer>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
-
-  <script>
-    // Assign btn IDs programmatically to each button [1, 7] inclusive.
-    for (let i = 1; i <= 7; ++i) {
-      let btns = document.querySelectorAll('button')
-      btns[i - 1].setAttribute('id', i);
-    }
-  </script>
+  <script src="scripts/btn-wiring.js"></script>
 </body>
 </html>
