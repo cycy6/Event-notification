@@ -12,7 +12,8 @@ let returnData;
 let autosuggestionArray;
 let numSuggestions;
 let formData;
-let info;
+let info = document.getElementsByClassName("form-control");
+
 let obj = { "Monday": [], "Tuesday": [], "Wednesday": [], "Thursday": [], "Friday": [], "Saturday": [], "Sunday": [] };
 let arr;
 let t;
@@ -113,9 +114,8 @@ document.getElementById('submitBtn').addEventListener("click", () => {
   }
 
 
-  obj[currentDay].push({medication: arr[0].value, description: arr[arr.length - 1].value, times: arr.slice(1, arr.length - 1)});
+  obj[currentDay].push({ medication: arr[0].value, description: arr[arr.length - 1].value, times: arr.slice(1, arr.length - 1) });
 
-  // Add to localStorage
 
 
   // restore all disabled btns.
@@ -123,9 +123,12 @@ document.getElementById('submitBtn').addEventListener("click", () => {
     btn.classList.remove('disabled');
   }
 
-  // hide form. Will remove this, just for debugging.
-  // TODO: REMOVE THIS EVENTUALLY!
+  // clear all <input> user text.
+  for (var i = 0; i < info.length; ++i) {
+    info[i].value = "";
+  }
 
+  // hide form. Will remove this, just for debugging.
   toastMsg.show();
   formCollapse.hide();
   listCollapse.hide();
@@ -137,6 +140,11 @@ document.getElementById('resetBtn').addEventListener("click", () => {
 
 document.getElementById('cancelBtn').addEventListener("click", () => {
   // clear form, and collapse.
+  info = document.getElementsByClassName("form-control");
+
+  for (var i = 0; i < info.length; ++i) {
+    info[i].value = "";
+  }
   // restore all disabled btns.
   for (const btn of document.getElementsByClassName("responsive-width")) {
     btn.classList.remove('disabled');
@@ -207,7 +215,7 @@ function btnClickHandler(event, day) {
   // grey out each button, make them unclickable.
   // The only way to make them clickable again is to either press the "#cancelBtn" or "#submitBtn" btns.
   for (const btn of btns) {
-    if (btn.id - 1 == day) {
+    if (btn.id == day) {
       continue;
     }
     btn.classList.add('disabled');
