@@ -132,7 +132,7 @@
     } 
 
     async function date(){
-      let fetchDateUrl = "http://worldclockapi.com/api/json/est/now"
+      let fetchDateUrl = "https://worldclockapi.com/api/json/est/now"
       console.log(`..fetching from ${fetchDateUrl}`)
       dateData = await fetch(fetchDateUrl).then(r => r.json())
       var displayDate = dateData['dayOfTheWeek']
