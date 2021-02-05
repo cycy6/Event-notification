@@ -9,9 +9,13 @@ let inputForm;
 let numTimeSlots = 1;
 let request;
 const myReg = /[a-z]+(?=<\/term>)/gim;
-let xmlDoc;
+let returnData;
+let autosuggestionArray;
+let numSuggestions;
+let formData;
+let info;
 
-(function() {
+(function () {
   // Initialization function.
   // Make form a collapsable element.
   formCollapse = new bootstrap.Collapse(document.getElementById('main-form'), {
@@ -25,13 +29,18 @@ let xmlDoc;
 
   // Initialize <form> into a FormData object.
   inputForm = document.getElementById('main-form');
+  formData = new FormData(inputForm);
 
   // Wire the form's 3 buttons, #submitBtn, #resetBtn, and #cancelBtn
   document.getElementById('submitBtn').addEventListener("click", () => {
     // Make sure required information is filled out by the user.
     // Submit the form.
 
-
+    info = document.getElementsByClassName("form-control");
+    // info.inputMedication, info.inputDescription, info.inputTime, info.inputTime1...info.inputTime4
+    for (x of info) {
+      //TODOOOOOOOO
+    }
     // restore all disabled btns.
     for (const btn of document.getElementsByClassName("responsive-width")) {
       btn.classList.remove('disabled');
@@ -41,7 +50,7 @@ let xmlDoc;
     // TODO: REMOVE THIS EVENTUALLY!
     formCollapse.hide();
     listCollapse.hide();
-})
+  })
 
   document.getElementById('resetBtn').addEventListener("click", () => {
     // input="reset" clears the form's data already. But w/e, keep this here.
@@ -129,7 +138,7 @@ function initializeDatabase() {
 
 let btns = document.getElementsByClassName("responsive-width");  // HTMLCollection(7)
 
-function btnClickHandler (event) {
+function btnClickHandler(event) {
   // DEBUGGING CODE
   console.log(this.id);
   // ...
@@ -153,28 +162,33 @@ for (const btn of btns) {
   btn.addEventListener("click", btnClickHandler);
 }
 
-// wire fuzzy match autosuggestion to the medication <input> element.
-
+// wire fuzzy match autosuggestion to the medication <input> element
 let inputMedication = document.getElementById('inputMedication');
-inputMedication.addEventListener('keypress', autoSuggest)
+inputMedication.addEventListener('keypress', autoSuggest);
+
 function autoSuggest() {
   console.log('autoSuggest() function executing!');
+
+  let keypresses = document.getElementById("inputMedication").value;
+
   request = new XMLHttpRequest();
-  request.open('GET', 'https://rxnav.nlm.nih.gov/REST/displaynames?name=well', true);
+  request.open('GET', `https://cors-anywhere.herokuapp.com/https://dailymed.nlm.nih.gov/dailymed/services/v2/drugnames.json`, true);
   request.onload = () => {
-    if (request.readyState === 4) {
-      xmlDoc = request.responseXML;
-      let autosuggestionArray = xmlDoc.getElementsByTagName('term');
-
-      for (let i = 0; i < 3; ++i) {
-        // Access autosuggestionArray[0..5], populate possible completion items.
+    if (request.readyState == 4 && request.status == 200) {
+      console.log("YAYAAYAYYAYAYA");
+      autosuggestionArray = JSON.parse(request.responseText);
+      numSuggestions = 0;
+      while (numSuggestions < 3) {
         let ul = document.getElementById('medication-div')
-        ul.children[i].innerHTML = autosuggestionArray[i].innerHTML;
-
-        listCollapse.show();
+        ul.children[numSuggestions].innerHTML = autosuggestionArray.data[numSuggestions].drug_name;
       }
+
+      listCollapse.show();
     }
   };
   request.send();
+
+  inputMedication.removeEventListener('keypress', autoSuggest);
 };
 
+// https://dailymed.nlm.nih.gov/dailymed/services/v2/drugnames.json
