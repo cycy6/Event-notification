@@ -87,3 +87,13 @@ html, body {
 #medication-div .list-group-item{
   min-height: 41px;
 }
+
+#toast-img {
+  max-height: 50px;
+  max-width: 50px;
+}
+
+#toastPlacement {
+  bottom: 100px;
+  left: 100px;
+}

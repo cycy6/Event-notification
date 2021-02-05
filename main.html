@@ -23,6 +23,23 @@
 </head>
 
 <body>
+
+  <!-- TOAST MESSAGE WHEN THEY SUBMIT -->
+  <div class="toast-container position-absolute" id="toastPlacement">
+    <div class="toast" role="alert" aria-live="assertive" id="toast-msg" data-autohide="false" aria-atomic="true">
+      <div class="toast-header">
+        <img src="images/pill.jpeg" class="rounded mr-2" id="toast-img" alt="image of a pill bottle">
+        <strong style="margin-left: 5px" class="mr-auto">Todo submitted!</strong>
+        <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="toast-body">
+        Successfully submitted!
+      </div>
+    </div>
+  </div>
+
   <!-- Modal -->
   <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -69,19 +86,25 @@
       <div id="days" class="btn-group" role="group" aria-label="Basic example">
         <table class="buttons">
           <tr>
-            <td><button type="button" class="btn btn-primary responsive-width" id="1" onClick="btnClickHandler(event, 1)" data-bs-target="#main-form">Mon</button>
+            <td><button type="button" class="btn btn-primary responsive-width" id="1"
+                onclick="{ btnClickHandler(event, '1') }"  data-bs-target="#main-form">Mon</button>
             </td>
-            <td><button type="button" class="btn btn-primary responsive-width" id="2" onClick="btnClickHandler(event, 2)" data-bs-target="#main-form">Tues</button>
+            <td><button type="button" class="btn btn-primary responsive-width" id="2"
+              onclick="{ btnClickHandler(event, '2') }" data-bs-target="#main-form">Tues</button>
             </td>
-            <td><button type="button" class="btn btn-primary responsive-width" id="3" onClick="btnClickHandler(event, 3)" data-bs-target="#main-form">Wed</button>
+            <td><button type="button" class="btn btn-primary responsive-width" id="3"
+              onclick="{ btnClickHandler(event, '3') }" data-bs-target="#main-form">Wed</button>
             </td>
-            <td><button type="button" class="btn btn-primary responsive-width" id="4" onClick="btnClickHandler(event, 4)"
-                data-bs-target="#main-form">Thurs</button></td>
-            <td><button type="button" class="btn btn-primary responsive-width" id="5" onClick="btnClickHandler(event, 5)" data-bs-target="#main-form">Fri</button>
+            <td><button type="button" class="btn btn-primary responsive-width" id="4"
+              onclick="{ btnClickHandler(event, '4') }" data-bs-target="#main-form">Thurs</button></td>
+            <td><button type="button" class="btn btn-primary responsive-width" id="5"
+              onclick="{ btnClickHandler(event, '5') }" data-bs-target="#main-form">Fri</button>
             </td>
-            <td><button type="button" class="btn btn-primary responsive-width" id="6" onClick="btnClickHandler(event, 6)"data-bs-target="#main-form">Sat</button>
+            <td><button type="button" class="btn btn-primary responsive-width" id="6"
+              onclick="{ btnClickHandler(event, '6') }" data-bs-target="#main-form">Sat</button>
             </td>
-            <td><button type="button" class="btn btn-primary responsive-width" id="7" onClick="btnClickHandler(event, 7)" data-bs-target="#main-form">Sun</button>
+            <td><button type="button" class="btn btn-primary responsive-width" id="7"
+              onclick="{ btnClickHandler(event, '7') }" data-bs-target="#main-form">Sun</button>
             </td>
           </tr>
         </table>
@@ -129,7 +152,7 @@
 
         <div class="col-md-12">
           <label for="inputCity" class="form-label">Description</label>
-          <input type="text" class="form-control" id="inputDescription" required>
+          <input type="text" class="form-control" id="inputDescription" autocomplete="off" required>
         </div>
 
         <div class="col-12">
@@ -162,11 +185,9 @@
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
 
-  <!-- bree job scheduler for alerts... see https://jobscheduler.net -->
-  <script src="https://unpkg.com/bree"></script>
- 
   <!-- Homegrown local script-->
   <script src="scripts/btn-wiring.js"></script>
+  <script src="scripts/database-code.js"></script>
 </body>
 
 </html>
