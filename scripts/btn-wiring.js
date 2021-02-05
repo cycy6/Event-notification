@@ -38,8 +38,12 @@ let info;
 
     info = document.getElementsByClassName("form-control");
     // info.inputMedication, info.inputDescription, info.inputTime, info.inputTime1...info.inputTime4
-    for (x of info) {
-      //TODOOOOOOOO
+
+    for (let i = 0; i < info.length; ++i) {
+      //info[0].value --> medication
+      //info[info.length - 1] --> description
+      //info[1] ... info[info.lenth - 2], inclusive --> timestamps to take.
+      console.log(info[i].value);
     }
     // restore all disabled btns.
     for (const btn of document.getElementsByClassName("responsive-width")) {
@@ -48,6 +52,7 @@ let info;
 
     // hide form. Will remove this, just for debugging.
     // TODO: REMOVE THIS EVENTUALLY!
+
     formCollapse.hide();
     listCollapse.hide();
   })
@@ -138,11 +143,9 @@ function initializeDatabase() {
 
 let btns = document.getElementsByClassName("responsive-width");  // HTMLCollection(7)
 
-function btnClickHandler(event) {
+function btnClickHandler(event, day) {
   // DEBUGGING CODE
-  console.log(this.id);
-  // ...
-  currentBtn = this.id;     // will return 1, 2, 3, 4, 5, 6, or 7, depending on the btn clicked.
+  console.log(day); // will return 1, 2, 3, 4, 5, 6, or 7, depending on the btn clicked.
   let inputForm = document.getElementById("input-form-container");
 
   // Open the medication input.
@@ -151,7 +154,7 @@ function btnClickHandler(event) {
   // grey out each button, make them unclickable.
   // The only way to make them clickable again is to either press the "#cancelBtn" or "#submitBtn" btns.
   for (const btn of btns) {
-    if (btn.id == this.id) {
+    if (btn.id == day) {
       continue;
     }
     btn.classList.add('disabled');
@@ -162,33 +165,33 @@ for (const btn of btns) {
   btn.addEventListener("click", btnClickHandler);
 }
 
-// wire fuzzy match autosuggestion to the medication <input> element
-let inputMedication = document.getElementById('inputMedication');
-inputMedication.addEventListener('keypress', autoSuggest);
+// // wire fuzzy match autosuggestion to the medication <input> element
+// let inputMedication = document.getElementById('inputMedication');
+// inputMedication.addEventListener('keypress', autoSuggest);
 
-function autoSuggest() {
-  console.log('autoSuggest() function executing!');
+// function autoSuggest() {
+//   console.log('autoSuggest() function executing!');
 
-  let keypresses = document.getElementById("inputMedication").value;
+//   let keypresses = document.getElementById("inputMedication").value;
 
-  request = new XMLHttpRequest();
-  request.open('GET', `https://cors-anywhere.herokuapp.com/https://dailymed.nlm.nih.gov/dailymed/services/v2/drugnames.json`, true);
-  request.onload = () => {
-    if (request.readyState == 4 && request.status == 200) {
-      console.log("YAYAAYAYYAYAYA");
-      autosuggestionArray = JSON.parse(request.responseText);
-      numSuggestions = 0;
-      while (numSuggestions < 3) {
-        let ul = document.getElementById('medication-div')
-        ul.children[numSuggestions].innerHTML = autosuggestionArray.data[numSuggestions].drug_name;
-      }
+//   request = new XMLHttpRequest();
+//   request.open('GET', `https://cors-anywhere.herokuapp.com/https://dailymed.nlm.nih.gov/dailymed/services/v2/drugnames.json`, true);
+//   request.onload = () => {
+//     if (request.readyState == 4 && request.status == 200) {
+//       console.log("YAYAAYAYYAYAYA");
+//       autosuggestionArray = JSON.parse(request.responseText);
+//       numSuggestions = 0;
+//       while (numSuggestions < 3) {
+//         let ul = document.getElementById('medication-div');
+//         ul.children[numSuggestions].innerHTML = autosuggestionArray.data[numSuggestions].drug_name;
+//       }
 
-      listCollapse.show();
-    }
-  };
-  request.send();
+//       listCollapse.show();
+//     }
+//   };
+//   request.send();
 
-  inputMedication.removeEventListener('keypress', autoSuggest);
-};
+//   inputMedication.removeEventListener('keypress', autoSuggest);
+// };
 
 // https://dailymed.nlm.nih.gov/dailymed/services/v2/drugnames.json
