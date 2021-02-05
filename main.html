@@ -25,15 +25,13 @@
           <li class="nav-item">
             <a class="nav-link active" aria-current="page" href="contact.html">Contact</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">History</a>
-          </li>
         </ul>
       </div>
     </div>
   </nav>
-
   <div class="main-section container">
+    <div id="displayCurrent"></div>
+    <div id="todaysDate"></div>
     <div class="placeholder font fontsize">
       Click Selected Day
     </div>
@@ -100,7 +98,7 @@
     <li class="nav-item" href="#" style="color: white">
       <p>@Copyright</p>
     </li>
-</footer>
+  </footer>
 
 
   <!-- Scripts -->
@@ -111,6 +109,38 @@
   <script src="scripts/btn-wiring.js"></script>
 
   <!-- AlertifyJS script -->
-  <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
+  <!-- <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+  <script>
+    var todaysDate = document.querySelector('#todaysDate')
+    var displayCurrent = document.querySelector("#displayCurrent")
+    var today = new Date()
+    var dd = today.getDate()
+    var mm = today.getMonth()
+    var yyyy = today.getFullYear()
+    today = mm + '/' + dd + '/' + yyyy
+
+    async function todayDisplay(cityName){
+      let fetchUrl = "https://api.openweathermap.org/data/2.5/weather?appid=327fecee9f6fad805256a047aec1915c&q=" + cityName
+      console.log(`..fetching from ${fetchUrl}`)
+      cityData = await fetch(fetchUrl).then(r => r.json())
+      var img = cityData['weather'][0]['icon']
+
+      todaysDate.innerHTML += `<h4>${today} <img src='http://openweathermap.org/img/wn/${img}@2x.png'></h4>`;
+      date()
+    } 
+
+    async function date(){
+      let fetchDateUrl = "http://worldclockapi.com/api/json/est/now"
+      console.log(`..fetching from ${fetchDateUrl}`)
+      dateData = await fetch(fetchDateUrl).then(r => r.json())
+      var displayDate = dateData['dayOfTheWeek']
+
+      displayCurrent.innerHTML += `<h3>Today is ${displayDate}</h3>`
+    }
+    
+    todayDisplay("toronto")
+  </script>
 </body>
 </html>
