@@ -14,6 +14,14 @@ html, body {
   background-color: #15b374;
 }
 
+.font{
+  font-weight: 500;
+}
+
+.fontsize{
+  font-size: large;
+}
+
 .center{
   margin : 0;
   position: relative;
