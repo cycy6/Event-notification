@@ -165,6 +165,30 @@ for (const btn of btns) {
   btn.addEventListener("click", btnClickHandler);
 }
 
+
+// function saveReminder( data ){
+//   var reminders = JSON.parse( localStorage.reminders || "[]" )
+//   reminders.push( data )
+//   localStorage.reminders = JSON.stringify( reminders )
+// }
+// saveReminder( { time: "2021-02-06 14:40:00", med: "tylenol", "take without food" } )
+// saveReminder( { time: "2021-02-06 18:40:00", med: "tylenol", "take without food" } )
+// saveReminder( { time: "2021-02-06 21:40:00", med: "tylenol", "take without food" } )
+// // every minute we check against any of the localStorage reminders
+// function checkReminders(){
+//   var reminders = JSON.parse( localStorage.reminders || "[]" )
+//   var currentTime = Math.floor( Date.now()/1000 ) // unix timestamp of current time (since from 1970)
+//   for( var i=0; i<reminders.length; i++ ){
+//       var reminderTime = reminders[i].time
+//       if( Number( moment(reminderTime).format("X") ) < currentTime ){
+//           // remove the time from the localStorage.reminders
+//           // display the message (in toastr)
+//       }
+//   }
+// }
+// setInterval( checkReminders, 60000 )
+
+
 // // wire fuzzy match autosuggestion to the medication <input> element
 // let inputMedication = document.getElementById('inputMedication');
 // inputMedication.addEventListener('keypress', autoSuggest);
