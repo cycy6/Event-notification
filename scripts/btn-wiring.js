@@ -13,14 +13,56 @@ let autosuggestionArray;
 let numSuggestions;
 let formData;
 let info = document.getElementsByClassName("form-control");
-
-let obj = { "Monday": [], "Tuesday": [], "Wednesday": [], "Thursday": [], "Friday": [], "Saturday": [], "Sunday": [] };
+let timeArray;
+let obj = {};
 let arr;
 let t;
 let toastMsg;
 var day;
 var currentDay;
 let btns;
+let timeArrayParsed;
+
+const ls = localStorage;
+
+// Database workflow.
+// Data Structure of localStorage
+// localStorage === 7 property object, each property corresponds to a day of week.
+// When we add a task (by pressing the submit btn), we stringify the object, and add it 
+// to the current day of week, giving it the property name of numTasks, then incrementing
+// numTasks by 1.
+// 
+// Example of adding one task
+// localStorage[currentDay][numTasks++] = JSON.stringify(task)
+//
+// For parsing localStorage, this is done if there is "history" in localStorage.
+//
+
+if (!ls.length) {
+  // Initialize it.
+  localStorage["Monday"] = JSON.stringify({numTasks: 0});
+  localStorage["Tuesday"] = JSON.stringify({numTasks: 0});
+  localStorage["Wednesday"] = JSON.stringify({numTasks: 0});
+  localStorage["Thursday"] = JSON.stringify({numTasks: 0});
+  localStorage["Friday"] = JSON.stringify({numTasks: 0});
+  localStorage["Saturday"] = JSON.stringify({numTasks: 0});
+  localStorage["Sunday"] = JSON.stringify({numTasks: 0});
+}
+
+else {
+  // TODO.
+
+}
+
+// Build obj
+obj["Monday"] = JSON.parse(localStorage["Monday"]);
+obj["Tuesday"] = JSON.parse(localStorage["Tuesday"]);
+obj["Wednesday"] = JSON.parse(localStorage["Wednesday"]);
+obj["Thursday"] = JSON.parse(localStorage["Thursday"]);
+obj["Friday"] = JSON.parse(localStorage["Friday"]);
+obj["Saturday"] = JSON.parse(localStorage["Saturday"]);
+obj["Sunday"] = JSON.parse(localStorage["Sunday"]);
+
 
 // Initialization function.
 // Make form a collapsable element.
@@ -43,13 +85,13 @@ inputForm = document.getElementById('main-form');
 btns = document.getElementsByClassName("responsive-width");  // HTMLCollection(7)
 
 
-function btnClickHandler(event, day) {
+function btnClickHandler(event) {
   // DEBUGGING CODE
-  console.log('btnClickHandler(event, day) has a day value of = ' + day); // will return 1, 2, 3, 4, 5, 6, or 7, depending on the btn clicked.
-  console.log('btnClickHandler(event, day) has a day value of = ' + event);
+  console.log('id =' + this.id); // will return 1, 2, 3, 4, 5, 6, or 7, depending on the btn clicked.
+  console.log('event = ' + event);
   // console.log(this.id);
   let inputForm = document.getElementById("input-form-container");
-  globalThis.day = day;
+  globalThis.day = this.id;
   // Open the medication input.
   formCollapse.show();
 
@@ -64,9 +106,9 @@ function btnClickHandler(event, day) {
   }
 }
 
-// for (const btn of btns) {
-//   btn.addEventListener("click", btnClickHandler);
-// }
+for (const btn of btns) {
+  btn.addEventListener("click", btnClickHandler);
+}
 
 // Wire the form's 3 buttons, #submitBtn, #resetBtn, and #cancelBtn
 document.getElementById('submitBtn').addEventListener("click", () => {
@@ -113,10 +155,20 @@ document.getElementById('submitBtn').addEventListener("click", () => {
       break;
   }
 
+  timeArray = arr.slice(1, arr.length - 1);
+  timeArrayParsed = [];
 
-  obj[currentDay].push({ medication: arr[0].value, description: arr[arr.length - 1].value, times: arr.slice(1, arr.length - 1) });
+  for (let i = 0; i < timeArray.length; ++i) {
+    timeArrayParsed.push(timeArray[i].value);
+  }
+  let todo = { medication: arr[0].value, description: arr[arr.length - 1].value, times: timeArrayParsed };
+  obj[currentDay][obj[currentDay].numTasks] = todo;
+  obj[currentDay].numTasks++;
 
-
+  console.log(obj);
+  console.log(obj[currentDay]);
+  console.log(currentDay);
+  console.log(obj[currentDay].numTasks);
 
   // restore all disabled btns.
   for (const btn of document.getElementsByClassName("responsive-width")) {
@@ -203,24 +255,6 @@ document.getElementById('minusBtn').addEventListener("click", () => {
 
 btns = document.getElementsByClassName("responsive-width");  // HTMLCollection(7)
 
-function btnClickHandler(event, day) {
-  // DEBUGGING CODE
-  // console.log(day); // will return 1, 2, 3, 4, 5, 6, or 7, depending on the btn clicked.
-  // console.log(this.id);
-  let inputForm = document.getElementById("input-form-container");
-  globalThis.day = day;
-  // Open the medication input.
-  formCollapse.show();
-
-  // grey out each button, make them unclickable.
-  // The only way to make them clickable again is to either press the "#cancelBtn" or "#submitBtn" btns.
-  for (const btn of btns) {
-    if (btn.id == day) {
-      continue;
-    }
-    btn.classList.add('disabled');
-  }
-}
 
 // function saveReminder( data ){
 //   var reminders = JSON.parse( localStorage.reminders || "[]" )
@@ -245,33 +279,52 @@ function btnClickHandler(event, day) {
 // setInterval( checkReminders, 60000 )
 
 
-// // wire fuzzy match autosuggestion to the medication <input> element
-// let inputMedication = document.getElementById('inputMedication');
-// inputMedication.addEventListener('keypress', autoSuggest);
 
-// function autoSuggest() {
-//   console.log('autoSuggest() function executing!');
+function checkReminders() {
+  let CD = moment().get('day');
+  let checkCurrent;
 
-//   let keypresses = document.getElementById("inputMedication").value;
+  let momentNow = moment();
 
-//   request = new XMLHttpRequest();
-//   request.open('GET', `https://cors-anywhere.herokuapp.com/https://dailymed.nlm.nih.gov/dailymed/services/v2/drugnames.json`, true);
-//   request.onload = () => {
-//     if (request.readyState == 4 && request.status == 200) {
-//       console.log("YAYAAYAYYAYAYA");
-//       autosuggestionArray = JSON.parse(request.responseText);
-//       numSuggestions = 0;
-//       while (numSuggestions < 3) {
-//         let ul = document.getElementById('medication-div');
-//         ul.children[numSuggestions].innerHTML = autosuggestionArray.data[numSuggestions].drug_name;
-//       }
+  switch (CD) {
+    case '1':
+      checkCurrent = "Monday";
+      break;
 
-//       listCollapse.show();
-//     }
-//   };
-//   request.send();
+    case '2':
+      checkCurrent = "Tuesday";
+      break;
 
-//   inputMedication.removeEventListener('keypress', autoSuggest);
-// };
+    case '3':
+      checkCurrent = "Wednesday";
+      break;
 
-// https://dailymed.nlm.nih.gov/dailymed/services/v2/drugnames.json
+    case '4':
+      checkCurrent = "Thursday";
+      break;
+
+    case '5':
+      checkCurrent = "Friday";
+      break;
+
+    case '6':
+      checkCurrent = "Saturday"
+      break;
+
+    case '7':
+      checkCurrent = "Sunday";
+      break;
+
+    default:
+      console.log("If you see this, you're fucked!");
+      break;
+  }
+  for (const i = 0; i < obj[checkCurrent].times.length; ++i) {
+    if (momentNow < moment(obj[checkCurrent].times[i])) {
+        // TODO:
+        // FINISH THIS!
+    }
+  }
+}
+
+setInterval(checkReminders, 60000);
