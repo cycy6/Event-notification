@@ -233,52 +233,7 @@ document.getElementById('minusBtn').addEventListener("click", () => {
 
 });
 
-// Write <input> for medication to use fuzzy matching
-// new Def.Autocompleter.Prefetch('drug_strengths', []);
-// new Def.Autocompleter.Search('rxterms', 'https://clinicaltables.nlm.nih.gov/api/rxterms/v3/search?ef=STRENGTHS_AND_FORMS');
-// Def.Autocompleter.Event.observeListSelections('rxterms', function () {
-//   var drugField = document.getElementById('inputMedication')[0];
-//   var autocomp = drugField.autocomp;
-//   var strengths =
-//     autocomp.getSelectedItemData()[0].data['STRENGTHS_AND_FORMS'];
-//   if (strengths)
-//     $('#drug_strengths')[0].autocomp.setListAndField(strengths, '');
-// });
-
-
-// Assign btn IDs programmatically to each button [1, 7] inclusive.
-// for (let i = 1; i <= 7; ++i) {
-//   let btns = document.querySelectorAll('button');
-
-//   btns[i - 1].setAttribute('id', i);
-// }
-
 btns = document.getElementsByClassName("responsive-width");  // HTMLCollection(7)
-
-
-// function saveReminder( data ){
-//   var reminders = JSON.parse( localStorage.reminders || "[]" )
-//   reminders.push( data )
-//   localStorage.reminders = JSON.stringify( reminders )
-// }
-// saveReminder( { time: "2021-02-06 14:40:00", med: "tylenol", "take without food" } )
-// saveReminder( { time: "2021-02-06 18:40:00", med: "tylenol", "take without food" } )
-// saveReminder( { time: "2021-02-06 21:40:00", med: "tylenol", "take without food" } )
-// // every minute we check against any of the localStorage reminders
-// function checkReminders(){
-//   var reminders = JSON.parse( localStorage.reminders || "[]" )
-//   var currentTime = Math.floor( Date.now()/1000 ) // unix timestamp of current time (since from 1970)
-//   for( var i=0; i<reminders.length; i++ ){
-//       var reminderTime = reminders[i].time
-//       if( Number( moment(reminderTime).format("X") ) < currentTime ){
-//           // remove the time from the localStorage.reminders
-//           // display the message (in toastr)
-//       }
-//   }
-// }
-// setInterval( checkReminders, 60000 )
-
-
 
 function checkReminders() {
   let CD = moment().get('day');
