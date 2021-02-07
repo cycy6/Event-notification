@@ -172,25 +172,26 @@
     var reminder = []
     var today = new Date()
 //========================send email=================================
-    // document.querySelector('#submitBtn').addEventListener('onclick', sendEmail(event))
+    document.querySelector('#submitBtn').addEventListener('onclick', sendEmail(event))
 
-    // function sendEmail(event) {
-    //   event.preventDefault()
-    //   var name = document.querySelector('#nameInput').value
-    //   var email = document.querySelector('#emailInput').value
-    //   var medic = document.querySelector('#inputMedication').value
-    //   var time = document.querySelector('#inputTime').value
-    //   await Email.send({
-    //     Host: "smtp.gmail.com",
-    //     Username: "georgehuo0211@gmail.com",
-    //     Password: "Vh3Ds@df0K",
-    //     To: `${email}`,
-    //     From: "georgehuo0211@gmail.com",
-    //     Subject: `Notification `,
-    //     Body: `
-    //             Hi, ${name} Your notification has been created, we will inform you to take ${medic} at ${time}.
-    //           `
-    // }
+    async function sendEmail(event) {
+      event.preventDefault()
+      var name = document.querySelector('#nameInput').value
+      // var email = document.querySelector('#emailInput').value
+      var medic = document.querySelector('#inputMedication').value
+      var time = document.querySelector('#inputTime').value
+      await Email.send({
+        Host: "smtp.gmail.com",
+        Username: "georgehuo0211@gmail.com",
+        Password: "Vh3Ds@df0K",
+        To: `siyuan.huo@yahoo.com`,
+        From: "georgehuo0211@gmail.com",
+        Subject: `Notification `,
+        Body: `
+                Hi, ${name} Your notification has been created, we will inform you to take ${medic} at ${time}.
+              `
+      })
+    }
 //===================================================================
 
     document.querySelector('#submitBtn').addEventListener('onclick', submitForm(event))
