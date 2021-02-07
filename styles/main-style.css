@@ -2,6 +2,12 @@
   box-sizing: border-box;
 }
 
+.title{
+  font-size: 50;
+  font-style: arial;
+
+}
+
 p{
   text-align: center;
 }
@@ -12,6 +18,14 @@ html, body {
   height: 100%;
   font-style: arial;
   background-color: #15b374;
+}
+
+.font{
+  font-weight: 500;
+}
+
+.fontsize{
+  font-size: large;
 }
 
 .center{
