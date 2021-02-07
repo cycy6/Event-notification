@@ -12,4 +12,6 @@ Once the form have been completed a reminder will appear at the set date and tim
 On the contact page, if there are any questions and inquiries, simply fill out he questions and click submit. The from will be submitted to the local server.
 
 <!-- upload preview picture of home screen, main, contact -->
-<!-- ![homePage](https://(picturelink)) -->
+![HomePage](https://i.gyazo.com/c5602f7540188a427f3d7dbf82624315.png)
+![Main](https://i.gyazo.com/ad6953e5d31b906c2ca1c2fa0e365944.png)
+![Contact](https://i.gyazo.com/bbcddcd493c4d997f0342e2053502f13.png
