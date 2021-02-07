@@ -297,6 +297,7 @@ function checkReminders() {
 
     if (currentHour >= taskHour && currentMinute >= taskMinute) {
       console.log("IF THIS EXECUTES, WE'RE GOLDEN!");
+      // remove so that the todo doesn't keep executing every minute.
     }
   }
 }
