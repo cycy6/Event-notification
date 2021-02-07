@@ -54,6 +54,8 @@
       <div class="row justify-content-center" style="margin-top: 60px;">
         <div id="contact-form main-section" class="col-7">
           <h1>Contact</h1>
+          <div id='failWarning' class="p-3 mb-2 bg-danger text-white d-none">please fill blank below</div>
+          <div id='successWarning' class="p-3 mb-2 bg-primary text-white d-none">Message has been sent</div>
           <div class="mb-3">
             <label for="exampleFormControlInput1" class="form-label">Name</label>
             <input type="email" class="form-control" id="nameInput">
@@ -68,13 +70,9 @@
           </div>
           <div class="col-auto">
             <button type="submit" class="btn btn-dark mb-3" onClick="submit(event)">Submit</button>
-            <!-- <button type="submit" class="btn btn-dark mb-3" onClick="toggleMessages(event)">History</button> -->
           </div>
         </div>
       </div>
-    </container>
-    <container class="container">
-      <div id="history" class="row"></div>
     </container>
 
     <footer class="nav justify-content-center fixed-bottom bg-dark">
@@ -88,53 +86,65 @@
       var contacts = []
       async function submit(event){
         event.preventDefault()
-        var person = {name:'', email:'', message:''}
         var name = document.querySelector('#nameInput').value
         var email = document.querySelector('#emailInput').value
         var message = document.querySelector('#messageInput').value
-        await Email.send({
-          Host: "smtp.gmail.com",
-          Username: "georgehuo0211@gmail.com",
-          Password: "Vh3Ds@df0K",
-          To: "siyuan.huo@yahoo.com",
-          From: "georgehuo0211@gmail.com",
-          Subject: `Message from ${name}`,
-          Body: `
-                  Message: ${message}
-                  Reply Email: ${email}
-                `
-        })
-        
-        person.name = name
-        person.email = email
-        person.message = message
-        contacts.push(person)
-        localStorage.contacts = JSON.stringify(contacts)
+        var validName = false
+        var validEmail = false
+        var validMessage = false
+
+        if (name == '') {
+          document.querySelector('#nameInput').classList.add('border-danger')
+          document.querySelector('#nameInput').classList.add('border-3')
+        } else {
+          document.querySelector('#nameInput').classList.remove('border-danger')
+          document.querySelector('#nameInput').classList.remove('border-3')
+          validName = true}
+        if (email == ''){
+          document.querySelector('#emailInput').classList.add('border-danger')
+          document.querySelector('#emailInput').classList.add('border-3')
+        } else {
+          document.querySelector('#emailInput').classList.remove('border-danger')
+          document.querySelector('#emailInput').classList.remove('border-3')
+          validEmail = true}
+        if (message == ''){
+          document.querySelector('#messageInput').classList.add('border-danger')
+          document.querySelector('#messageInput').classList.add('border-3')
+        } else {
+          document.querySelector('#messageInput').classList.remove('border-danger')
+          document.querySelector('#messageInput').classList.remove('border-3')
+          validMessage = true}
+
+        var success = document.querySelector('#successWarning')
+        var fail = document.querySelector('#failWarning')
+        if(validName && validEmail && validMessage) {
+          fail.classList.add('d-none')
+
+          await Email.send({
+            Host: "smtp.gmail.com",
+            Username: "georgehuo0211@gmail.com",
+            Password: "Vh3Ds@df0K",
+            To: "siyuan.huo@yahoo.com",
+            From: "georgehuo0211@gmail.com",
+            Subject: `Message from ${name}`,
+            Body: `
+                    Message: ${message}\n
+                    Reply Email: ${email}
+                  `
+          })
+          
+          success.classList.remove('d-none')
+          setTimeout(function () {success.classList.add('d-none')}, 5000)
+          document.querySelector('#nameInput').value = ''
+          document.querySelector('#emailInput').value = ''
+          document.querySelector('#messageInput').value = ''
+        } else {
+          fail.classList.remove('d-none')
+        }
       }
 
-      function toggleMessages(event) {
-        event.preventDefault()
-        if (document.querySelector('#history').innerHTML == '') {
-          var historyMsg = JSON.parse(localStorage.contacts)
-          for (var i = 0; i < historyMsg.length; i++) {
-            var name = historyMsg[i].name
-            var email = historyMsg[i].email
-            var message = historyMsg[i].message
-            document.querySelector('#history').innerHTML += `
-              <div class="row justify-content-center">
-                <div class="col-7 border-top" >
-                  <p>Name: ${name}</p>
-                  <p>Email: ${email}</p>
-                  <p>Message: ${message}</p>
-                </div>
-              </div>
-            `
-          }
-        } else {
-          document.querySelector('#history').innerHTML = ''
-        }
-        
-      }
+
+      
 
     </script>
   </body>
