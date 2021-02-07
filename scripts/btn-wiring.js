@@ -22,6 +22,10 @@ var day;
 var currentDay;
 let btns;
 let timeArrayParsed;
+let currentHour;
+let currentMinute;
+let taskHour;
+let taskMinute;
 
 const ls = localStorage;
 
@@ -40,13 +44,13 @@ const ls = localStorage;
 
 if (!ls.length) {
   // Initialize it.
-  localStorage["Monday"] = JSON.stringify({numTasks: 0});
-  localStorage["Tuesday"] = JSON.stringify({numTasks: 0});
-  localStorage["Wednesday"] = JSON.stringify({numTasks: 0});
-  localStorage["Thursday"] = JSON.stringify({numTasks: 0});
-  localStorage["Friday"] = JSON.stringify({numTasks: 0});
-  localStorage["Saturday"] = JSON.stringify({numTasks: 0});
-  localStorage["Sunday"] = JSON.stringify({numTasks: 0});
+  localStorage["Monday"] = JSON.stringify({ numTasks: 0 });
+  localStorage["Tuesday"] = JSON.stringify({ numTasks: 0 });
+  localStorage["Wednesday"] = JSON.stringify({ numTasks: 0 });
+  localStorage["Thursday"] = JSON.stringify({ numTasks: 0 });
+  localStorage["Friday"] = JSON.stringify({ numTasks: 0 });
+  localStorage["Saturday"] = JSON.stringify({ numTasks: 0 });
+  localStorage["Sunday"] = JSON.stringify({ numTasks: 0 });
 }
 
 else {
@@ -180,10 +184,13 @@ document.getElementById('submitBtn').addEventListener("click", () => {
     info[i].value = "";
   }
 
+  setInterval(checkReminders, 60000);
+
   // hide form. Will remove this, just for debugging.
   toastMsg.show();
   formCollapse.hide();
   listCollapse.hide();
+  console.log('hey');
 });
 
 document.getElementById('resetBtn').addEventListener("click", () => {
@@ -201,8 +208,11 @@ document.getElementById('cancelBtn').addEventListener("click", () => {
   for (const btn of document.getElementsByClassName("responsive-width")) {
     btn.classList.remove('disabled');
   }
+
+
   formCollapse.hide();
   listCollapse.hide();
+
 });
 
 // Prevent submit button from refreshing page.
@@ -236,50 +246,57 @@ document.getElementById('minusBtn').addEventListener("click", () => {
 btns = document.getElementsByClassName("responsive-width");  // HTMLCollection(7)
 
 function checkReminders() {
+  console.log('checkreminders!!');
   let CD = moment().get('day');
   let checkCurrent;
+  currentHour = parseInt(moment().format('HH:mm').split(':')[0]);
+  currentMinute = parseInt(moment().format('HH:mm').split(':')[1]);
 
-  let momentNow = moment();
 
-  switch (CD) {
-    case '1':
-      checkCurrent = "Monday";
-      break;
+  // switch (CD) {
+  //   case '1':
+  //     checkCurrent = "Monday";
+  //     break;
 
-    case '2':
-      checkCurrent = "Tuesday";
-      break;
+  //   case '2':
+  //     checkCurrent = "Tuesday";
+  //     break;
 
-    case '3':
-      checkCurrent = "Wednesday";
-      break;
+  //   case '3':
+  //     checkCurrent = "Wednesday";
+  //     break;
 
-    case '4':
-      checkCurrent = "Thursday";
-      break;
+  //   case '4':
+  //     checkCurrent = "Thursday";
+  //     break;
 
-    case '5':
-      checkCurrent = "Friday";
-      break;
+  //   case '5':
+  //     checkCurrent = "Friday";
+  //     break;
 
-    case '6':
-      checkCurrent = "Saturday"
-      break;
+  //   case '6':
+  //     checkCurrent = "Saturday"
+  //     break;
 
-    case '7':
-      checkCurrent = "Sunday";
-      break;
+  //   case '7':
+  //     checkCurrent = "Sunday";
+  //     break;
 
-    default:
-      console.log("If you see this, you're fucked!");
-      break;
-  }
-  for (const i = 0; i < obj[checkCurrent].times.length; ++i) {
-    if (momentNow < moment(obj[checkCurrent].times[i])) {
-        // TODO:
-        // FINISH THIS!
+  //   default:
+  //     console.log("If you see this, you're fucked!");
+  //     break;
+  // }
+
+  for (let i = 0; i < obj[currentDay][0].times.length; ++i) {
+    let x = obj[currentDay][0].times[i];
+    taskHour = parseInt(x.split(':')[0]);
+    taskMinute = parseInt(x.split(':')[1]);
+
+    console.log("taskHour = " + taskHour);
+    console.log("taskMinute = " + taskMinute);
+
+    if (currentHour >= taskHour && currentMinute >= taskMinute) {
+      console.log("IF THIS EXECUTES, WE'RE GOLDEN!");
     }
   }
 }
-
-setInterval(checkReminders, 60000);
