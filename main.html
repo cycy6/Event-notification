@@ -106,6 +106,40 @@
 
 
   <!-- Scripts -->
+  <script>
+    
+    var reminder = []
+    var today = new Date()
+//========================send email=================================
+    // document.querySelector('#submitBtn').addEventListener('onclick', sendEmail(event))
+
+    // function sendEmail(event) {
+    //   event.preventDefault()
+    //   var name = document.querySelector('#nameInput').value
+    //   var email = document.querySelector('#emailInput').value
+    //   var medic = document.querySelector('#inputMedication').value
+    //   var time = document.querySelector('#inputTime').value
+    //   await Email.send({
+    //     Host: "smtp.gmail.com",
+    //     Username: "georgehuo0211@gmail.com",
+    //     Password: "Vh3Ds@df0K",
+    //     To: `${email}`,
+    //     From: "georgehuo0211@gmail.com",
+    //     Subject: `Notification `,
+    //     Body: `
+    //             Hi, ${name} Your notification has been created, we will inform you to take ${medic} at ${time}.
+    //           `
+    // }
+//===================================================================
+
+    document.querySelector('#submitBtn').addEventListener('onclick', submitForm(event))
+    function submitForm(event) {
+      event.preventDefault()
+      var pill = document.querySelector('#inputMedication').value
+      var medic = {time: now, message: `it's time to take ${pill}`}
+    }
+  </script>
+
   <!-- Bootstrap 5 script -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
 
