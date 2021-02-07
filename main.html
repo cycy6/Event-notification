@@ -39,7 +39,7 @@
   </div>
 
   <!-- Modal -->
-  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal fade" id="myModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
@@ -50,12 +50,13 @@
           ...
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary">Save changes</button>
+          <button type="button" class="btn btn-primary">I took my meds</button>
         </div>
       </div>
     </div>
   </div>
+
+
   <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
     <div class="container-fluid">
       <a class="navbar-brand" href="index.html">Home</a>
@@ -193,7 +194,7 @@
     // }
 //===================================================================
 
-    document.querySelector('#submitBtn').addEventListener('onclick', submitForm(event))
+    document.querySelector('#submitBtn').addEventListener('onclick', submitForm(event));
     function submitForm(event) {
       event.preventDefault()
       var pill = document.querySelector('#inputMedication').value
