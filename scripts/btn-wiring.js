@@ -293,6 +293,8 @@ function checkReminders() {
       taskHour = parseInt(x.split(':')[0]);
       taskMinute = parseInt(x.split(':')[1]);
 
+      console.log("j = " + j);
+      console.log("i = " + x);
       console.log("taskHour = " + taskHour);
       console.log("taskMinute = " + taskMinute);
 
@@ -310,7 +312,9 @@ function checkReminders() {
         modelBodyInput.innerHTML = `REMEMBER: ${obj[currentDay][j].description}`
 
         myModal.show();
-
+        obj[currentDay][i].times.shift();   // Removes the reminder.
+        obj[currentDay].numTasks -= 1;
+        
 
         console.log("IF THIS EXECUTES, WE'RE GOLDEN!");
         // remove so that the todo doesn't keep executing every minute.
