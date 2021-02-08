@@ -15,5 +15,5 @@ On the contact page, if there are any questions and inquiries, simply fill out h
 <!-- upload preview picture of home screen, main, contact -->
 ![HomePage](https://i.gyazo.com/c5602f7540188a427f3d7dbf82624315.png)
 ![Main](https://i.gyazo.com/ad6953e5d31b906c2ca1c2fa0e365944.png)
-![Rem] (https://utortorfsfft0-yd09744.slack.com/files/U01JBBUQB97/F01MFSQB0Q4/image.png)
+![Rem] (https://gyazo.com/b2250d99aa021de03889817edbce2f07)
 ![Contact](https://i.gyazo.com/bbcddcd493c4d997f0342e2053502f13.png)
