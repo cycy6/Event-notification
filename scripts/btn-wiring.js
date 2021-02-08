@@ -287,16 +287,38 @@ function checkReminders() {
   //     break;
   // }
 
-  for (let i = 0; i < obj[currentDay][0].times.length; ++i) {
-    let x = obj[currentDay][0].times[i];
-    taskHour = parseInt(x.split(':')[0]);
-    taskMinute = parseInt(x.split(':')[1]);
+  for (let j = 0; j < obj[currentDay].numTasks; ++j) {
+    for (let i = 0; i < obj[currentDay][j].times.length; ++i) {
+      let x = obj[currentDay][obj[currentDay].numTasks - 1].times[i];
+      taskHour = parseInt(x.split(':')[0]);
+      taskMinute = parseInt(x.split(':')[1]);
 
-    console.log("taskHour = " + taskHour);
-    console.log("taskMinute = " + taskMinute);
+      console.log("j = " + j);
+      console.log("i = " + x);
+      console.log("taskHour = " + taskHour);
+      console.log("taskMinute = " + taskMinute);
 
-    if (currentHour >= taskHour && currentMinute >= taskMinute) {
-      console.log("IF THIS EXECUTES, WE'RE GOLDEN!");
+      if (currentHour >= taskHour && currentMinute >= taskMinute) {
+        var myModal = new bootstrap.Modal(document.getElementById('myModal'), {
+          focus: true,
+          keyboard: false,
+          backdrop: 'static'
+        });
+
+        var modelTitle = document.getElementById('myModal').querySelector('.modal-title');
+        var modelBodyInput = document.getElementById('myModal').querySelector('.modal-body');
+
+        modelTitle.textContent = `TAKE YOUR ${obj[currentDay][j].medication}!`
+        modelBodyInput.innerHTML = `REMEMBER: ${obj[currentDay][j].description}`
+
+        myModal.show();
+        obj[currentDay][i].times.shift();   // Removes the reminder.
+        obj[currentDay].numTasks -= 1;
+        
+
+        console.log("IF THIS EXECUTES, WE'RE GOLDEN!");
+        // remove so that the todo doesn't keep executing every minute.
+      }
     }
   }
 }
