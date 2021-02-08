@@ -127,7 +127,7 @@
       cityData = await fetch(fetchUrl).then(r => r.json())
       var img = cityData['weather'][0]['icon']
 
-      todaysDate.innerHTML += `<h4>${today} <img src='http://openweathermap.org/img/wn/${img}@2x.png'></h4>`;
+      todaysDate.innerHTML += `<h4>${today} <img src='https://openweathermap.org/img/wn/${img}@2x.png'></h4>`;
       date()
     } 
 
